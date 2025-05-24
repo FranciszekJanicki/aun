@@ -36,7 +36,7 @@
 
 \subsection{WZMACNIACZ LINIOWY / WZMACNIACZ IMPULSOWY}
 
-a) zamodelować (obwodowo, LTSpice) prosty wzmacniacz liniowy (w układzie WE oraz pary komplementarnej), wyznaczyć jego efektywność e`nergetyczną ze względu na punkt pracy
+a) Badanie sprawnosci wzmacniacza liniowego BJT
 
 \begin{figure}[H]
 \centering
@@ -74,7 +74,7 @@ a) zamodelować (obwodowo, LTSpice) prosty wzmacniacz liniowy (w układzie WE or
 \caption{Sprawnosc pracy wzmacniacza liniowego BJT}
 \end{table}
 
-b) zamodelować wzmacniacz impulsowy (wymuszenie PWM) na tych samych komponentach (BJT) i zweryfikować  jego efektywność energetyczną, porównać do sprawności z (a) dla tych samych punktów pracy 
+b) Badanie sprawnosci wzmacniacza impulsowego BJT, porownanie z wzmacniaczem liniowym BJT
 
 \begin{figure}[H]
 \centering
@@ -120,7 +120,7 @@ b) zamodelować wzmacniacz impulsowy (wymuszenie PWM) na tych samych komponentac
 
 \subsection{TECHNOLOGIA BJT/MOSFET}
 
-c) zweryfikować pracę wzmaczniacza impulsowego na bazie tranzystora polowego (MOSFET) o podobnych parametrach aplikacyjnych (klasa prądowa/napięciowa). Porównać dynamikę oraz efektywność energetyczną (ze względu na punkt pracy, rezystancję bramki tranzystora, dobór samego tranzystora oraz częstotliwość pracy).
+c) Badanie sprawności wzmacniacza impulsowego MOSFET i porównanie z wzmacniaczem impulsowym BJT oraz porównanie wpływu Rds_on i ładunku bramki na sprawność
 
 \begin{figure}[H]
 \centering
@@ -164,8 +164,58 @@ c) zweryfikować pracę wzmaczniacza impulsowego na bazie tranzystora polowego (
 \caption{Wykres sprawnosci wzmacniacza impulsowego BJT i MOSFET}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Parametr} & \textbf{IRFL4310} & \textbf{IRF2907Z} \\
+\hline
+Rds\_on & 200\,m\(\Omega\) & 3,5\,m\(\Omega\) \\
+\hline
+GateCharge & 28\,nC & 180\,nC \\
+\hline
+\end{tabular}
+\caption{Porównanie parametrów tranzystorów IRFL4310 i IRF2907Z}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{f [Hz]} & \multicolumn{3}{c|}{\textbf{IRFL4310}} & \multicolumn{3}{c|}{\textbf{IRF2907Z}} \\
+\cline{2-7}
+ & $P_{in}+P_{vcc}$ [W] & $P_{out}$ [W] & Sprawność [\%] & $P_{in}+P_{vcc}$ [W] & $P_{out}$ [W] & Sprawność [\%] \\
+\hline
+1k   & 2,9009 & 2,8836 & 99,41 & 2,9009 & 2,8988 & 99,93 \\
+\hline
+2k   & 2,8917 & 2,8916 & 99,99 & 2,9219 & 2,9177 & 99,85 \\
+\hline
+4k   & 2,9078 & 2,9076 & 99,99 & 2,9638 & 2,9555 & 99,72 \\
+\hline
+8k   & 2,9400 & 2,9397 & 99,96 & 3,0478 & 3,0312 & 99,45 \\
+\hline
+16k  & 3,1335 & 3,1321 & 99,96 & --- & -- & --- \\
+\hline
+32k  & 3,1332 & 3,1319 & 99,92 & --- & --- & --- \\
+\hline
+64k  & 3,3909 & 3,3882 & 99,92 & --- & --- & --- \\
+\hline
+\end{tabular}
+\caption{Porównanie sprawności tranzystorów IRFL4310 oraz IRF2907Z przy 50\% duty cycle. Dla częstotliwości PWM powyżej 64 kHz tranzystor IRFL4310 zaczyna nie nadążać z domykaniem oraz otwieraniem, natomiast dla częstotliwości 16 kHz robi to IRF2907Z.}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_imp_mosfet_comparison.png}
+\caption{Wykres sprawnosci wzmacniaczy impulsowych MOSFET}
+\end{figure}
 
 \subsection{ZJAWISKA W OBWODZIE D-S TRANZYSTORA WYNIKAJĄCE Z PARAMETRÓW PASOŻYTNICZYCH OBWODU}
+
+d) Badanie wartosci pasozytniczych w ukladzie RLD sterowanym wzmacniaczem impulsowym MOSFET
+
+e) Dobor tlumika oscylacji napiecia (parametry snubber'a)
 
 \section{Część II}
 

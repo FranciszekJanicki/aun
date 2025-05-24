@@ -213,9 +213,103 @@ GateCharge & 28\,nC & 180\,nC \\
 
 \subsection{ZJAWISKA W OBWODZIE D-S TRANZYSTORA WYNIKAJĄCE Z PARAMETRÓW PASOŻYTNICZYCH OBWODU}
 
-d) Badanie wartosci pasozytniczych w ukladzie RLD sterowanym wzmacniaczem impulsowym MOSFET
+d) Badanie wartosci pasozytniczych w ukladzie RLD sterowanym tranzystorem MOSFET
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_without_snubber.png}
+\caption{Schemat pomiarowy ukladu RLD sterowanego tranzystorem MOSFET}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_without_snubber_rgate100ohm.png}
+\caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 100 [Ohm]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_without_snubber_rgate10ohm.png}
+\caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 10 [Ohm]}
+\end{figure}
 
 e) Dobor tlumika oscylacji napiecia (parametry snubber'a)
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber.png}
+\caption{Schemat pomiarowy ukladu RLD sterowanego tranzystorem MOSFET z tlumikiem oscylacji w obwodzie D-S tranzystora}
+
+
+
+
+
+\\
+\\
+\\
+\\
+
+Dobra tutaj nie mam pojecia bo przy dodaniu kondensatora zwiekszaja sie oscylacje zamiast zmniejszac, pewnie przez pasozytniczosc
+
+Trzeba jeszcze raz policzyc, kiedys jak lizylismy z Kuba to wychodzilo tez gowno ale
+nie takie jak mi teraz wychodzi
+
+IDK O CO CHODZI, odlaczylem snubbera i jechalem krok po kroku jak na tym forum
+co podlinkowal
+
+Z dokumentacji dobralem C0 na 1nF
+
+Aha i pamietajcie jedno: 
+1. dutkeiwicz
+2. boltrukiewicz
+3. kardys
+
+\\
+\\
+\\
+\\
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber_rgate100ohm.png}
+\caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 100 [Ohm] i z tlumikiem oscylacji D-S}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber_rgate10ohm.png}
+\caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 10 [Ohm] i z tlumikiem oscylacji D-S}
+\end{figure}
+
+\\
+\\
+\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Tlumik} & \(\mathbf{T_{osc} \ (\mu s)}\) & \(\mathbf{A_{osc} \ (V)}\) \\
+\hline
+Bez tlumika, \(R_{gate} = 100\,\Omega\) & 1.0958 & 30.7943 \\
+\hline
+Bez tlumika, \(R_{gate} = 10\,\Omega\) & 1.8058 & 50.8134 \\
+\hline
+Tlumik, \(R_{gate} = 10\,\Omega\) & 1.0968 & 10.0267 \\
+\hline
+Tlumik, \(R_{gate} = 100\,\Omega\) & 1.1505 & 10.4941 \\
+\hline
+\end{tabular}
+\caption{Porownanie napiecia na drenie tranzystora MOSFET sterujacym ukladem RLD z oraz bez uzycia tlumika}
+\label{tab:oscillation_data}
+\end{table}
+
+
+\end{figure}
 
 \section{Część II}
 

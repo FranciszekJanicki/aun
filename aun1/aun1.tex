@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\captionsetup{font=small, skip=6pt}
+\usepackage{titlesec}
+\usepackage{parskip}
+\setlength{\parskip}{4pt}
+\setlength{\textfloatsep}{10pt}
+\setlength{\floatsep}{6pt}
+\setlength{\intextsep}{10pt}
+
+\titlespacing*{\section}{0pt}{2ex plus .2ex minus .2ex}{1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1ex plus .1ex minus .1ex}{0.5ex plus .1ex}
+
+
+\usepackage{parskip}
+\setlength{\parskip}{2pt}
+
+\title{Wzmacniacze mocy w napędzie elektrycznym. Przekształtnik tranzystorowy i tyrystorowy.}
+
+\author{
+  Mateusz Jaworski \\
+  Piotr Migdalek \\
+  Pawel Michalski \\
+  Jakub Jaszczak \\
+  Franciszek Janicki
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Część I}
+
+\subsection{WZMACNIACZ LINIOWY / WZMACNIACZ IMPULSOWY}
+
+a) zamodelować (obwodowo, LTSpice) prosty wzmacniacz liniowy (w układzie WE oraz pary komplementarnej), wyznaczyć jego efektywność e`nergetyczną ze względu na punkt pracy
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_liniowy_bjt.png}
+\caption{Schemat pomiarowy wzmacniacza liniowego BJT}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vcc [V]} & \textbf{V\_in [V]} & \textbf{P\_in + P\_vcc [mW]} & \textbf{P\_out [W]} & \textbf{Sprawność [\%]} \\
+\hline
+24 & 2  & 0{,}667  & 0{,}014683 & 2{,}201 \\
+\hline
+24 & 4  & 1{,}525  & 0{,}070000 & 4{,}590 \\
+\hline
+24 & 6  & 2{,}380  & 0{,}166000 & 6{,}975 \\
+\hline
+24 & 8  & 3{,}242  & 0{,}360000 & 11{,}104 \\
+\hline
+24 & 10 & 4{,}097  & 0{,}477000 & 11{,}643 \\
+\hline
+24 & 12 & 4{,}950  & 0{,}690000 & 13{,}939 \\
+\hline
+24 & 14 & 5{,}800  & 0{,}941000 & 16{,}224 \\
+\hline
+24 & 16 & 6{,}640  & 1{,}220000 & 18{,}373 \\
+\hline
+24 & 18 & 7{,}490  & 1{,}540000 & 20{,}561 \\
+\hline
+24 & 20 & 8{,}330  & 1{,}940000 & 23{,}289 \\
+\hline
+\end{tabular}
+\caption{Sprawnosc pracy wzmacniacza liniowego BJT}
+\end{table}
+
+b) zamodelować wzmacniacz impulsowy (wymuszenie PWM) na tych samych komponentach (BJT) i zweryfikować  jego efektywność energetyczną, porównać do sprawności z (a) dla tych samych punktów pracy 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_impulsowy_bjt.png}
+\caption{Schemat pomiarowy wzmacniacza impulsowego BJT}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vcc [V]} & \textbf{V\_in [V]} & \textbf{P\_vcc + P\_in [W]} & \textbf{P\_out [W]} & \textbf{Sprawność [\%]} \\
+\hline
+24 & 2  & 0{,}54825 & 0{,}499   & 91{,}017 \\
+\hline
+24 & 4  & 1{,}054   & 0{,}974   & 92{,}410 \\
+\hline
+24 & 6  & 1{,}549   & 1{,}453   & 93{,}802 \\
+\hline
+24 & 8  & 2{,}046   & 1{,}928   & 94{,}233 \\
+\hline
+24 & 10 & 2{,}544   & 2{,}4023  & 94{,}430 \\
+\hline
+24 & 12 & 3{,}0476  & 2{,}882   & 94{,}566 \\
+\hline
+24 & 14 & 3{,}545   & 3{,}356   & 94{,}669 \\
+\hline
+24 & 16 & 4{,}042   & 3{,}831   & 94{,}780 \\
+\hline
+24 & 18 & 4{,}546   & 4{,}311   & 94{,}831 \\
+\hline
+24 & 20 & 5{,}043   & 4{,}833   & 95{,}836 \\
+\hline
+\end{tabular}
+\caption{Sprawnosc pracy wzmacniacza impulsowego BJT}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_lin_vs_imp_bjt.png}
+\caption{Wykres sprawnosci wzmacniacza liniowego i impulsowego BJT}
+\end{figure}
+
+\subsection{TECHNOLOGIA BJT/MOSFET}
+
+c) zweryfikować pracę wzmaczniacza impulsowego na bazie tranzystora polowego (MOSFET) o podobnych parametrach aplikacyjnych (klasa prądowa/napięciowa). Porównać dynamikę oraz efektywność energetyczną (ze względu na punkt pracy, rezystancję bramki tranzystora, dobór samego tranzystora oraz częstotliwość pracy).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_impulsowy_mosfet.png}
+\caption{Schemat pomiarowy wzmacniacza impulsowego MOSFET}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vcc [V]} & \textbf{V\_in [V]} & \textbf{P\_vcc + P\_in [mW]} & \textbf{P\_out [W]} & \textbf{Sprawność [\%]} \\
+\hline
+24 & 2  & 0{,}499    & 0{,}4956   & 99{,}319 \\
+\hline
+24 & 4  & 0{,}95412  & 0{,}9506   & 99{,}631 \\
+\hline
+24 & 6  & 1{,}461    & 1{,}4575   & 99{,}760 \\
+\hline
+24 & 8  & 1{,}939    & 1{,}9355   & 99{,}819 \\
+\hline
+24 & 10 & 2{,}417    & 2{,}4135   & 99{,}855 \\
+\hline
+24 & 12 & 2{,}9009   & 2{,}8974   & 99{,}879 \\
+\hline
+24 & 14 & 3{,}379    & 3{,}375    & 99{,}882 \\
+\hline
+24 & 16 & 3{,}857    & 3{,}853    & 99{,}896 \\
+\hline
+24 & 18 & 4{,}3409   & 4{,}3373   & 99{,}917 \\
+\hline
+24 & 20 & 5{,}760    & 5{,}759    & 99{,}983 \\
+\hline
+\end{tabular}
+\caption{Sprawnosc pracy wzmacniacza impulsowego MOSFET}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_imp_bjt_vs_mosfet.png}
+\caption{Wykres sprawnosci wzmacniacza impulsowego BJT i MOSFET}
+\end{figure}
+
+
+\subsection{ZJAWISKA W OBWODZIE D-S TRANZYSTORA WYNIKAJĄCE Z PARAMETRÓW PASOŻYTNICZYCH OBWODU}
+
+\section{Część II}
+
+\subsection{TYPOWA REALIZACJA TORU STEROWANIA TRANZYSTORA MOSFET}
+
+\subsection{MOSTKOWE UKŁADY WZMACZNIACZY TRANZYSTOROWYCH}
+
+\section{Część III}
+
+\subsection{BADANIA EKSPERYMENTALNE}
+
+\section{Część IV}
+
+\subsection{MOSTEK TYRYSTOROWY}
+
+\end{document}

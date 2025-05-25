@@ -2,7 +2,9 @@
 \usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{pdfcomment}
 \usepackage{float}
+\usepackage{tikz}
 \captionsetup{font=small, skip=6pt}
 \usepackage{titlesec}
 \usepackage{parskip}
@@ -114,9 +116,10 @@ b) Badanie sprawnosci wzmacniacza impulsowego BJT, porownanie z wzmacniaczem lin
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_lin_vs_imp_bjt.png}
+\includegraphics[width=0.8\textwidth]{aun1_liniowy_impulsowy_bjt.pdf}
 \caption{Wykres sprawnosci wzmacniacza liniowego i impulsowego BJT}
 \end{figure}
+
 
 \subsection{TECHNOLOGIA BJT/MOSFET}
 
@@ -160,7 +163,7 @@ c) Badanie sprawności wzmacniacza impulsowego MOSFET i porównanie z wzmacniacz
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_imp_bjt_vs_mosfet.png}
+\includegraphics[width=0.8\textwidth]{aun1_imp_bjt_vs_mosfet.pdf}
 \caption{Wykres sprawnosci wzmacniacza impulsowego BJT i MOSFET}
 \end{figure}
 
@@ -175,6 +178,7 @@ Rds\_on & 200\,m\(\Omega\) & 3,5\,m\(\Omega\) \\
 GateCharge & 28\,nC & 180\,nC \\
 \hline
 \end{tabular}
+
 \caption{Porównanie parametrów tranzystorów IRFL4310 i IRF2907Z}
 \end{table}
 
@@ -207,7 +211,7 @@ GateCharge & 28\,nC & 180\,nC \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_imp_mosfet_comparison.png}
+\includegraphics[width=0.8\textwidth]{aun1_imp_mosfet_comparison.pdf}
 \caption{Wykres sprawnosci wzmacniaczy impulsowych MOSFET}
 \end{figure}
 
@@ -239,38 +243,7 @@ e) Dobor tlumika oscylacji napiecia (parametry snubber'a)
 \centering
 \includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber.png}
 \caption{Schemat pomiarowy ukladu RLD sterowanego tranzystorem MOSFET z tlumikiem oscylacji w obwodzie D-S tranzystora}
-
-
-
-
-
-\\
-\\
-\\
-\\
-
-Dobra tutaj nie mam pojecia bo przy dodaniu kondensatora zwiekszaja sie oscylacje zamiast zmniejszac, pewnie przez pasozytniczosc
-
-Trzeba jeszcze raz policzyc, kiedys jak lizylismy z Kuba to wychodzilo tez gowno ale
-nie takie jak mi teraz wychodzi
-
-IDK O CO CHODZI, odlaczylem snubbera i jechalem krok po kroku jak na tym forum
-co podlinkowal
-
-Z dokumentacji dobralem C0 na 1nF
-
-Aha i pamietajcie jedno: 
-1. dutkeiwicz
-2. boltrukiewicz
-3. kardys
-
-\\
-\\
-\\
-\\
-
-
-
+\end{figure}
 
 \begin{figure}[H]
 \centering
@@ -278,16 +251,11 @@ Aha i pamietajcie jedno:
 \caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 100 [Ohm] i z tlumikiem oscylacji D-S}
 \end{figure}
 
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber_rgate10ohm.png}
 \caption{Przebieg napiecia na wyjsciu tranzystora MOSFET sterujacego ukladem RLD z rezystancja bramki 10 [Ohm] i z tlumikiem oscylacji D-S}
 \end{figure}
-
-\\
-\\
-\\
 
 \begin{table}[H]
 \centering
@@ -307,7 +275,6 @@ Tlumik, \(R_{gate} = 100\,\Omega\) & 1.1505 & 10.4941 \\
 \caption{Porownanie napiecia na drenie tranzystora MOSFET sterujacym ukladem RLD z oraz bez uzycia tlumika}
 \label{tab:oscillation_data}
 \end{table}
-
 
 \end{figure}
 

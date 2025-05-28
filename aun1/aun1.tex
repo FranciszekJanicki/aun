@@ -120,7 +120,6 @@ b) Badanie sprawnosci wzmacniacza impulsowego BJT, porownanie z wzmacniaczem lin
 \caption{Wykres sprawnosci wzmacniacza liniowego i impulsowego BJT}
 \end{figure}
 
-
 \subsection{TECHNOLOGIA BJT/MOSFET}
 
 c) Badanie sprawności wzmacniacza impulsowego MOSFET i porównanie z wzmacniaczem impulsowym BJT oraz porównanie wpływu Rds_on i ładunku bramki na sprawność
@@ -181,7 +180,6 @@ GateCharge & 28\,nC & 180\,nC \\
 
 \caption{Porównanie parametrów tranzystorów IRFL4310 i IRF2907Z}
 \end{table}
-
 
 \begin{table}[H]
 \centering
@@ -245,6 +243,38 @@ e) Dobor tlumika oscylacji napiecia (parametry snubber'a)
 \caption{Schemat pomiarowy ukladu RLD sterowanego tranzystorem MOSFET z tlumikiem oscylacji w obwodzie D-S tranzystora}
 \end{figure}
 
+Dobór parametrów tłumika (snubbera):
+\begin{enumerate}
+  \item Mierzymy częstotliwość oscylacji:
+  \[
+  f_0 = \SI{3.3}{\mega\hertz}
+  \]
+  \item Dobieramy kondensator o pojemności większej niż pojemność pasożytnicza tranzystora i mierzymy nową częstotliwość zakłóceń:
+  \[
+  C_1 = \SI{1}{\nano\farad}, \quad f_1 = \SI{2.7}{\mega\hertz}
+  \]
+  \item Liczymy stosunek częstotliwości:
+  \[
+  m = \frac{f_0}{f_1} = \frac{3.3}{2.7} = 1.22
+  \]
+  \item Obliczamy pojemność pasożytniczą tranzystora:
+  \[
+  C_0 = \frac{C_1}{m^2 - 1} = \frac{1\,\text{nF}}{1.22^2 - 1} = \SI{2.02}{\nano\farad}
+  \]
+  \item Obliczamy wartość indukcyjności pasożytniczej:
+  \[
+  L_0 = \frac{(m^2 - 1)}{(2\pi f_0)^2 C_1} = \frac{(1.22^2 - 1)}{(2\pi \cdot 3.3 \times 10^6)^2 \cdot 1 \times 10^{-9}} = \SI{1.15}{\micro\henry}
+  \]
+  \item Obliczamy minimalną wartość pojemności kondensatora snubbera:
+  \[
+  C_{\text{snubber}} = 3C_0 = 3 \cdot \SI{2.02}{\nano\farad} = \SI{6.06}{\nano\farad}
+  \]
+  \item Obliczamy wartość rezystancji w snubberze:
+  \[
+  R_{\text{snubber}} = \sqrt{\frac{L_0}{C_0}} = \sqrt{\frac{1.15 \times 10^{-6}}{2.02 \times 10^{-9}}} = \SI{24}{\ohm}
+  \]
+\end{enumerate}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{aun1_rld_with_snubber_rgate100ohm.png}
@@ -287,6 +317,95 @@ Tlumik, \(R_{gate} = 100\,\Omega\) & 1.1505 & 10.4941 \\
 \section{Część III}
 
 \subsection{BADANIA EKSPERYMENTALNE}
+
+j) Przebiegi prądów oraz napięć na stanowiskach eksperymentalnych
+
+Uwaga: brak jednostek na osi OY spowodowany jest faktem, ze dane
+zapisane byly w formacie raw, niezeskalowane
+
+Przebiegi na stanowisku Alspa- amplituda napiecia 250 [V], amplituda pradu 1.5 [A], regulacja predkosci odbywala sie przez zmiane czestotliwosci napiecia i pradu
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_alspa_rpm300.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Alspa przy predkosci katowej 300 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_alspa_rpm600.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Alspa przy predkosci katowej 600 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_alspa_rpm900.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Alspa przy predkosci katowej 900 [RPM]}
+\end{figure}
+
+Przebiegi na stanowisku Microverter
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_microverter_rpm300.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Microverter przy predkosci katowej 300 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_microverter_rpm600.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Microverter przy predkosci katowej 600 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_microverter_rpm900.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Microverter przy predkosci katowej 900 [RPM]}
+\end{figure}
+
+Przebiegi napiecia i pradu na stanowisku Unidrive
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unidrive_rpm300.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy predkosci katowej 300 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unidrive_rpm600.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy predkosci katowej 600 [RPM]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unidrive_rpm900.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy predkosci katowej 900 [RPM]}
+\end{figure}
+
+Przebiegi na stanowisku DML
+
+Uwaga: Niestety, ale grupa od ktorej otrzymalismy te pomiary (prowadzacy zgodzil sie na taki proceder, poniewaz zadna z grup nie zdazyla wykonac eksperymentu na kazdym stanowisku) nie zapisala dla jakich predkosci katowych
+byly robione pomiary
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_weak.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy malym obciazeniu}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_medium.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy srednim obciazeniu}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_hard.pdf}
+\caption{Przebieg napiecia oraz pradu na stanowisku Unidrive przy duzym obciazeniu}
+\end{figure}
+
 
 \section{Część IV}
 

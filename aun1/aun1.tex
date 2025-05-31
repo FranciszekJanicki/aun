@@ -16,7 +16,7 @@
 \titlespacing*{\section}{0pt}{2ex plus .2ex minus .2ex}{1ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{1ex plus .1ex minus .1ex}{0.5ex plus .1ex}
 
-
+    
 \usepackage{parskip}
 \setlength{\parskip}{2pt}
 
@@ -291,7 +291,7 @@ Dobór parametrów tłumika (snubbera):
 \centering
 \begin{tabular}{|l|c|c|}
 \hline
-\textbf{Tlumik} & \(\mathbf{T_{osc} \ (\mu s)}\) & \(\mathbf{A_{osc} \ (V)}\) \\
+\textbf{Tlumik} & \(\mathbf{T_{osc} \ [\mu s]}\) & \(\mathbf{A_{osc} \ [V]}\) \\
 \hline
 Bez tlumika, \(R_{gate} = 100\,\Omega\) & 1.0958 & 30.7943 \\
 \hline
@@ -312,7 +312,148 @@ Tlumik, \(R_{gate} = 100\,\Omega\) & 1.1505 & 10.4941 \\
 
 \subsection{TYPOWA REALIZACJA TORU STEROWANIA TRANZYSTORA MOSFET}
 
+f) Badanie wplywu wartosci komponentow na strate mocy na tranzystorze. Porownanie dynamiki transoptora analogowego i cyfrowego z uwzglednieniem pradu diody. Zaleznosc wytracanej mocy na tranzystorze w zaleznosci od czestotliwosci PWM.
+
+Zapoznano się ze strukturą i zamodelowano typowy tor sterowania tranzystorem MOSFET.
+Układ składa się z bloku separacji galwanicznej – transoptora, układu wzmocnienia sygnału oraz gate drivera.
+Transoptor zapewnia, że sygnał sterujący jest przekazywany bez elektrycznego połączenia, umożliwiając pracę w układzie o różnych punktach odniesienia masy i chroniąc elektronikę sterującą przed uszkodzeniem.
+Gate driver odpowiada za szybkie i pewne przełączanie tranzystora poprzez odpowiednie ładowanie i rozładowywanie jego pojemności bramki, co ma istotny wpływ na straty przełączania oraz niezawodność pracy całego układu.
+Do wejścia układu sterującego podawany jest sygnał PWM (ang. Pulse Width Modulation), który steruje pracą transoptora, a w konsekwencji – tranzystora MOSFET. Sygnał ten determinuje częstotliwość oraz czas włączenia tranzystora, wpływając bezpośrednio na charakterystykę napięcia i prądu w obwodzie wyjściowym.
+
+Porównano dwa transoptory - analogowy (PC817) oraz cyfrowy (ISOM8710). 
+Dodatkowo zbadano wpływ prądu diody na ich dynamikę i przedstawiono na wykresach 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_rin100ohm.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla rezystancji wejsciowej 100 [Ohm]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_rin230ohm.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla rezystancji wejsciowej 230 [Ohm]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_rin500ohm.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla rezystancji wejsciowej 500 [Ohm]}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_rin1000ohm.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla rezystancji wejsciowej 1000 [Ohm]}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Rezystancja wejściowa} & \(\mathbf{I_{analog} \ [mA]}\) & \(\mathbf{I_{cyfrowy} \ [mA]}\) \\
+\hline
+100\,$\Omega$ & 18.0 & 14.0 \\
+\hline
+230\,$\Omega$ & 8.0 & 6.5 \\
+\hline
+500\,$\Omega$ & 3.8 & 3.2 \\
+\hline
+1000\,$\Omega$ & 1.9 & 1.6 \\
+\hline
+1560\,$\Omega$ & 1.3 & 1.0 \\
+\hline
+\end{tabular}
+\caption{Porównanie prądu diody w funkcji rezystancji wejściowej dla sygnału analogowego i cyfrowego}
+\label{tab:diode_current_comparison}
+\end{table}
+
+Z wykresów widać, że im mniejszy prąd na diodzie tym mniejsza minimalna wartość napięcia na transoptorze analogowym. Natomiast na transoptorze cyfrowym napięcie minimalne się nie zmienia, aż do momentu przekroczenia 1560 Ohm na rezystorze wejściowym - wtedy napięcie ma wartość niezmienną 5V.
+
+Dynamika zmienia się także przy zmianie częstotliwości, co pokazano na wykresach:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_5khz.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla sygnalu PWM o czestotliwosci 5kHz}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_gate_circuit_digital_vs_analog_20khz.pdf}
+\caption{Przebiegi napiecia na wyjsciu tranzystora MOSFET z transoptorem dla sygnalu PWM o czestotliwosci 20kHz}
+\end{figure}
+
+Na wykresach widać, że transoptor analogowy nie radzi sobie tak dobrze jak transoptor cyfrowy dla wysokich częstotliwości.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Częstotliwość} & \textbf{MOSFET IPW65R041CFD7 (W)} & \textbf{IGBT IKQB120N75CP2 (W)} \\
+\hline
+1\,kHz & -- & -- \\
+\hline
+10\,kHz & -- & -- \\
+\hline
+50\,kHz & -- & -- \\
+\hline
+100\,kHz & -- & -- \\
+\hline
+\end{tabular}
+\caption{Średnia moc wytracana na tranzystorze w zależności od częstotliwości}
+\end{table}
+
 \subsection{MOSTKOWE UKŁADY WZMACZNIACZY TRANZYSTOROWYCH}
+
+g) Problemy mostkow mocy
+
+Mostek mocy to układ elektroniczny wykorzystywany do sterowania przepływem prądu przez obciążenie, najczęściej silnik. Najpopularniejszą konfiguracją jest tzw. mostek H, który składa się z czterech tranzystorów mocy. Dzięki odpowiedniemu przełączaniu tych tranzystorów możliwe jest sterowanie kierunkiem oraz wartością prądu płynącego przez obciążenie. Mostki mocy znajdują zastosowanie w układach napędowych i przekształtnikach, a ich działanie opiera się na szybkim przełączaniu elementów półprzewodnikowych w celu efektywnego zarządzania energią.
+
+W mostku H kluczowe są 3 rodzaje sterowania:
+-- unipolarny
+-- quasi-bipolarny
+-- bipolarny
+
+h) Analiza dzialania ukladu sterowania bipolarnego, unipolarnego, quasi-bipolarnego
+
+W układach z obciążeniem RLE (rezystancja, indukcyjność i źródło siły elektromotorycznej), istotnym zjawiskiem jest konieczność zapewnienia ścieżki demagnetyzacji dla prądu cewki. Podczas wyłączania tranzystorów sterujących, energia zgromadzona w indukcyjności nie może zostać natychmiast rozproszona. W takim przypadku pojawiają się przepięcia i zakłócenia, o ile nie zostanie zapewniona odpowiednia ścieżka dla tego prądu.
+Sterowanie unipolarne:
+ W tym trybie tranzystory włączane są na przemian tylko w jednej gałęzi mostka (np. górnej). Prąd powrotny z cewki płynie przez diody swobodne w dolnej gałęzi. Ścieżka demagnetyzacji realizowana jest wyłącznie przez te diody, co powoduje wolniejszą dynamikę wyłączania i dłuższy czas ustalania się prądu.
+
+Sterowanie quasi-bipolarne:
+Jest to tryb pośredni, gdzie w każdej połowie okresu włączany jest jeden tranzystor, natomiast przeciwny tranzystor w drugiej gałęzi jest wyłączony. Demagnetyzacja cewki odbywa się przez diody swobodne przeciwległej gałęzi, które stanowią naturalną ścieżkę dla prądu indukowanego. Dzięki temu dynamika pracy jest lepsza niż w trybie unipolarnym, a układ zachowuje prostotę sterowania i mniejsze straty energetyczne.
+
+Sterowanie bipolarne:
+Tranzystory włączane są naprzemiennie w obu gałęziach mostka, co pozwala na aktywne sterowanie przepływem prądu w obydwu kierunkach. W momencie przełączania prąd z cewki jest wymuszany przez aktywnie sterowany tranzystor w drugiej gałęzi, co zapewnia najszybszą i najbardziej precyzyjną ścieżkę demagnetyzacji. Jednak kosztem wyższych strat mocy i bardziej skomplikowanego układu sterowania.
+
+i) Model bipolarnego i unipolarnego sterowania
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge.png}
+\caption{Przebieg napiecia na silniku przy mostku sterowanym bipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge.png}
+\caption{Przebieg napiecia na silniku przy mostku sterowanym unipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge2.png}
+\caption{Przebieg predkosci na silniku przy mostku sterowanym bipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge2.png}
+\caption{Przebieg predkosci na silniku przy mostku sterowanym unipolarnie}
+\end{figure}
+
+Z wykresów wynika, że przy sterowaniu unipolarnym dynamika układu jest gorsza, a odpowiedź ustala się wolniej. Sterowanie to jest jednak bardziej efektywne energetycznie.
 
 \section{Część III}
 

@@ -37,6 +37,9 @@
 
 \maketitle
 
+\tableofcontents
+\newpage
+
 \section{Część I}
 
 \subsection{WZMACNIACZ LINIOWY / WZMACNIACZ IMPULSOWY}
@@ -359,6 +362,12 @@ Transoptor zapewnia, że sygnał sterujący jest przekazywany bez elektrycznego 
 Gate driver odpowiada za szybkie i pewne przełączanie tranzystora poprzez odpowiednie ładowanie i rozładowywanie jego pojemności bramki, co ma istotny wpływ na straty przełączania oraz niezawodność pracy całego układu.
 Do wejścia układu sterującego podawany jest sygnał PWM (ang. Pulse Width Modulation), który steruje pracą transoptora, a w konsekwencji – tranzystora MOSFET. Sygnał ten determinuje częstotliwość oraz czas włączenia tranzystora, wpływając bezpośrednio na charakterystykę napięcia i prądu w obwodzie wyjściowym.\\
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_transoptor.png}
+\caption{Schemat pomiarowy toru sterowania tranzystora MOSFET}
+\end{figure}
+
 Porównano dwa transoptory - analogowy (PC817) oraz cyfrowy (ISOM8710). 
 Dodatkowo zbadano wpływ prądu diody na ich dynamikę i przedstawiono na wykresach.\\
 
@@ -407,7 +416,7 @@ Dodatkowo zbadano wpływ prądu diody na ich dynamikę i przedstawiono na wykres
 \label{tab:diode_current_comparison}
 \end{table}
 
-Z wykresów widać, że im mniejszy prąd na diodzie tym mniejsza minimalna wartość napięcia na transoptorze analogowym. Natomiast na transoptorze cyfrowym napięcie minimalne się nie zmienia, aż do momentu przekroczenia 1560 \Omega na rezystorze wejściowym - wtedy napięcie ma wartość niezmienną 5V. \\
+Z wykresów wynika, że im mniejszy prąd na diodzie, tym mniejsza minimalna wartość napięcia na transoptorze analogowym. Natomiast w przypadku transoptora cyfrowego napięcie minimalne nie ulega zmianie aż do momentu przekroczenia rezystancji $1560\ \Omega$ na rezystorze wejściowym — wtedy napięcie przyjmuje stałą wartość $5\ \mathrm{V}$.\\
 
 Dynamika zmienia się także przy zmianie częstotliwości, co pokazano na wykresach: \\
 
@@ -483,31 +492,55 @@ Napięcie może przyjmować wartości +U, –U oraz 0 V, ponieważ każda z poł
 Tranzystory włączane są naprzemiennie w obu gałęziach mostka, co pozwala na aktywne sterowanie przepływem prądu w obydwu kierunkach. W momencie przełączania prąd z cewki jest wymuszany przez aktywnie sterowany tranzystor w drugiej gałęzi, co zapewnia najszybszą i najbardziej precyzyjną ścieżkę demagnetyzacji. Odbywa się to jednak kosztem wyższych strat mocy i bardziej skomplikowanego układu sterowania.
 Napięcie wyjściowe skacze bezpośrednio między +U a –U. W idealnym przypadku nie występuje 0 V, chyba że w czasie przełączeń PWM (np. dead-time). Umożliwia to najbardziej dynamiczne sterowanie prądem.\\
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_motor.pdf}
+\caption{Przebieg napięcia na silniku przy mostku sterowanym bipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_motor.pdf}
+\caption{Przebieg napięcia na silniku przy mostku sterowanym unipolarnie}
+\end{figure}
+
 i) Model bipolarnego i unipolarnego sterowania
 
 Zamodelowano w matlabie i pokazano na wykresach sterowanie bipolarne i unipolarne silnika oraz jak to wpływa na jego prędkość:\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge.png}
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_schematic.png}
+\caption{Schemat pomiarowy mostka sterowanego bipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_schematic.png}
+\caption{Schemat pomiarowy mostka sterowanego unipolarnie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge_voltage.png}
 \caption{Przebieg napięcia na silniku przy mostku sterowanym bipolarnie}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge.png}
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge_voltage.png}
 \caption{Przebieg napięcia na silniku przy mostku sterowanym unipolarnie}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge2.png}
+\includegraphics[width=0.8\textwidth]{aun1_bipolar_bridge.png}
 \caption{Przebieg prędkości na silniku przy mostku sterowanym bipolarnie}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge2.png}
+\includegraphics[width=0.8\textwidth]{aun1_unipolar_bridge.png}
 \caption{Przebieg prędkości na silniku przy mostku sterowanym unipolarnie}
 \end{figure}
 
@@ -589,29 +622,156 @@ Przebiegi napięcia i prądu na stanowisku Unidrive.\\
 Jak widzimy, podobnie do napędu Microverter, napęd Unidrive charakteryzuje się mniejszą częstotliwością i większą amplitudą mierzonych wielkości niż napęd Alspa.\\
 
 \section{Część IV}
-
-\subsection{MOSTEK TYRYSTOROWY}
-
-Przebiegi napięcia i prądu na stanowisku DML.\\
-
+\subsection{Analiza działania modelu obwodowego mostka tyrystorowego w LTSpice}
 \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{aun1_fbps-schemat.png}
+    \caption{Schemat modelu obwodowego mostka tyrystorowego z tłumieniem}
+    \label{fig:fbps-schemat}
+\end{figure}
+W tej ostatniej części ćwiczenia przeanalizowano działanie modelu obwodowego mostka tyrystorowego wyposażonego w tłumik (Snubber) przedstawionego na schemacie \ref{fig:fbps-schemat}, zrealizowanego w środowisku symulacyjnym LTSpice. Tyrystory, które stanowią kluczowy element układu, zostały użyte do sterowania przepływem prądu przemiennego w obciążeniu poprzez zmianę momentu ich załączenia, wyrażanego jako tzw. kąt wyzwolenia (nazywany dalej fire angle).
+Symulacje przeprowadzono przy napięciu sinusoidalnym o amplitudzie \(U_s=230 V\). Do bramek tyrystorów doprowadzano impuls wyzwalający o napięciu 5 V, umożliwiający ich przewodzenie. W tabeli \ref{tab:tabela_fire_angle} przedstawiono zmierzone wartości \(V_{avg}\) oraz \(I_{avg}\) dla kolejnych coraz większych wartości fire angle.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{aun1_tyrystor_fireangle.pdf}
+    \caption{Przebieg wartości z tabeli \ref{tab:tabela_fire_angle} w funkcji $Fire angle$}
+    \label{fig:wykresIavgVavg}
+\end{figure}
+\begin{table}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_weak.pdf}
-\caption{Przebieg napięcia oraz prądu na stanowisku Unidrive przy małym obciążeniu}
+\caption{Zestawienie wyników pomiarów średniego napięcia i prądu obciążenia}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{$Fire\;angle$ [$^\circ$]} & \textbf{$V_{avg}$ [V]} & \textbf{$I_{avg}$ [A]} \\
+\hline
+0   & 205.325  & 20.4866   \\
+10  & 202.341  & 19.8957   \\
+20  & 193.498  & 18.1498   \\
+30  & 178.976  & 15.2874   \\
+40  & 167.536  & 13.0369   \\
+50  & 161.921  & 11.9319   \\
+60  & 154.814  & 10.5391   \\
+70  & 146.744  & 8.9626    \\
+80  & 138.205  & 7.2999    \\
+90  & 129.687  & 5.6485    \\
+100 & 121.659  & 4.1004    \\
+110 & 114.543  & 2.7373    \\
+120 & 108.679  & 1.6255    \\
+130 & 104.304  & 0.8071    \\
+140 & 101.483  & 0.2918    \\
+150 & 100.264  & 0.0515    \\
+160 & 100.001  & 0.0001    \\
+170 & 99.9996  & 0.0000    \\
+180 & 99.9996  & 0.0000    \\
+\hline
+\end{tabular}
+\label{tab:tabela_fire_angle}
+\end{table}
+
+
+Jak można zaobserwować na danych z tabeli \ref{tab:tabela_fire_angle} oraz wykresie \ref{fig:wykresIavgVavg} średnia wartość napięcia przy wzroście zbiega do 100 V, a średnia wartość prądu do 0 A. Przy 180$^{\circ}$ są to dokładnie takie wartości. Oczywiście jest to efekt działania obwodowego mostka tyrystorowego. Fire angle określa moment przewodzenia tyrystora w mostku względem okresu sygnału. Im wyższa wartość fire angle tym później tyrystor zaczyna przewodzić. Pozwala to nam na sterowanie silnikiem elektrycznym w układzie. Wpływ wartości fire angle na przebiegi napięcia oraz prądu na obciążeniu można zaobserwować na wykresach \ref{fig:aun1_fbps-0} - \ref{fig:aun1_fbps-180}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-0.png}
+    \caption{Przebieg napięcia oraz prądu dla 0$^{\circ}$}
+    \label{fig:aun1_fbps-0}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-45.png}
+    \caption{Przebieg napięcia oraz prądu dla 45$^{\circ}$}
+    \label{fig:aun1_fbps-45}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-60.png}
+    \caption{Przebieg napięcia oraz prądu dla 60$^{\circ}$}
+    \label{fig:aun1_fbps-60}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-90.png}
+    \caption{Przebieg napięcia oraz prądu dla 90$^{\circ}$}
+    \label{fig:aun1_fbps-90}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-120.png}
+    \caption{Przebieg napięcia oraz prądu dla 90$^{\circ}$}
+    \label{fig:aun1_fbps-120}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-150.png}
+    \caption{Przebieg napięcia oraz prądu dla 150$^{\circ}$}
+    \label{fig:aun1_fbps-150}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbps-180.png}
+    \caption{Przebieg napięcia oraz prądu dla 180$^{\circ}$}
+    \label{fig:aun1_fbps-180}
+\end{figure}
+Warto zaznaczyć, że do poprawnego działania układu mostka konieczne jest zastosowanie układu tłumiącego procesy przejściowe mostka, które są obecne na schemacie \ref{fig:fbps-schemat}, jednakże gdyby nie zastosowano takiego tłumika, przebiegi wyglądałyby tak jak na wykresie \ref{fig:aun1_fbp-90}. Widać wyraźnie impulsy, które w żaden sposób nie przysłużyłyby się działaniu układy, dlatego wyfiltrowanie ich jest tak kluczowe. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_fbp-90.png}
+    \caption{Przebiegi napiecia oraz prądu bez elementów tłumiących (bez Snubbera)}
+    \label{fig:aun1_fbp-90}
+\end{figure}
+\subsection{Analiza działania modelu sygnałowego mostka tyrystorowego w Matlab/Simulink}
+Następnie zostało zanalizowane działanie modelu sygnałowego mostka tyrystorowego w symulacji simulink wraz z modelem silnika elektrycznego. Sygnałem wejściowym był skok, a na wykresie \ref{fig:smt_VandMC} możemy zaobserwować delikatne opóźnienie transportowe około 200 ms. W stanie przejściowym napięcie silnika oscyluje pomiędzy wartościami dodatnimi, a ujemnymi. Wraz z ustalaniem sygnału i osiągnięciem przez silnik prędkości obrotowej zadanej, napięcie wytraca ujemną część w swoim okresie i jedynie pozostaje dodatnia połówka okresowego sygnału osiągająca w najwyższym punkcie 320 V. Prąd silnika natomiast również charakteryzuje się sygnałem okresowym, który podobnie w procesie przejściowym ustala się na wartości w punkcie najwyższym 20. Jako, że w modelu simulink wartość prądu dla większej przejrzystości wykresu przemnożona jest razy 10, oznacza to że szczytowa wartość sygnału prądu ustala się na poziomie 2 A.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_smt_VandMC.png}
+    \caption{Przebieg prądu oraz napięcia silnika przy sterowaniu sygnałowym mostkiem tyrystorowym}
+    \label{fig:smt_VandMC}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_smt_wPV.png}
+    \caption{Przebieg prędkości kątowej silnika w rad/s}
+    \label{fig:smt_wPV}
+\end{figure}
+Na wykresie \ref{fig:smt_wPV} Przedstawiony został przebieg prędkości kątowej silnika, udala się ona na wartości około 130 rad/s w czasie 1 sekundy. Warto zaznaczyć, że model wymagał konkretnych zadanych parametrów, aby móc w pełni zasymulować silnik elektryczny. Mają one wpływ na jego dynamikę.
+\subsection{Porównanie parametrów pracy napędu z mostkiem tranzystorowym oraz tyrystorowym w procesie sterowania (skokowa zmiana wymuszenia) w Matlab/Simulink}
+Porównano sterowanie przy pomocy mostka tranzystorowego oraz tyrystorowego. Obydwa modele sterują silnikiem elektrycznym o takich samych parametrach w modelu simulink. Przebieg prądu silnika na wykresie \ref{fig:tranz_prad} przy sterowaniu mostkiem tranzystorowym ujawnia o wiele większy skok w wartości, ale zarazem o wiele krótszy czas dynamiki przejściowe, z delikatnym podregulowaniem. Zarazem przebieg prędkości zaprezentowany na wykresie \ref{fig:tranz_predkosc}, prędkość nominalna zostaje osiągnięta w o wiele krótszym czasie, wynika to z faktu, że moment obrotowy silnika jest wprost proporcjonalny do prądu płynącego przez uzwojenie. \\
+Największą różnicą w obydwu układach mostkowych jest sposób sterowania, w mostku tyrystorowym tak jak widzimy na wykresach \ref{fig:aun1_fbps-0}-\ref{fig:aun1_fbps-180}, modulujemy prąd układu fazowo, zmieniając kąt wyzwolenia co pozwala na dokładne i jawne sterowanie stanem silnika. W przypadku mostka tranzystorowego sterujemy przy pomocy sygnału PWM, dzięki czemu uzyskujemy o wiele większą dynamikę, ale też o wiele większe skoki prądowe w stanach przejściowych. Ich użyteczność zależy od kryteriów ich zastosowania.\\ Jak widzimy na wykresach \ref{fig:smt_VandMC} oraz \ref{fig:smt_wPV} układ z mostkiem tyrystorowym przy takich samych parametrach silnika o wiele wolniej doprowadził silnik do ustalonej nominalnej prędkości, ale z o wiele mniejszym prądem w czasie dynamiki przejściowej.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{aun1_tranz_predkosc.png}
+    \caption{Przebieg prędkości kątowej silnika przy sterowaniu mostkiem tranzystorowym [rpm]}
+    \label{fig:tranz_predkosc}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{aun1_tranz_prad.png}
+    \caption{Przebieg prądu przy sterowaniu mostkiem tranzystorowym}
+    \label{fig:tranz_prad}
 \end{figure}
 
+\subsection{Eksperymentalna analiza przebiegów prądu oraz napięcia zasilające silnik napędu DML w różnych stanach pracy (napięcie średnie/obciążenie)}
+Pomiary eksperymentalne napędu DML zostały wykonane przez inną grupę i niestety w procesie zostały zapisane jedynie pomiary z oscyloskopu, bez żadnych informacji o aktualnej prędkości obrotowej. Dodatkowo wartości zostały przeskalowane podczas pomiaru, tak aby wysokie wartości napięcia silnika dało się pomierzyć przy pomoc oscyloskopu. 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_medium.pdf}
-\caption{Przebieg napięcia oraz prądu na stanowisku Unidrive przy średnim obciążeniu}
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_dml2_obciazenie_weak.pdf}
+    \caption{Przebieg prądu oraz napięcia silnika przy napędzie DML przy lekkim obciążeniu}
+    \label{fig:dml_obciazenie_weak}
 \end{figure}
-
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{aun1_dml_obciazenie_hard.pdf}
-\caption{Przebieg napięcia oraz prądu na stanowisku Unidrive przy dużym obciążeniu}
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_dml2_obciazenie_medium.pdf}
+    \caption{Przebieg prądu oraz napięcia silnika przy napędzie DML przy średnim obciążeniu}
+    \label{fig:dml_obciazenie_medium}
 \end{figure}
-
-Tu wnioski do DML.\\
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{aun1_dml2_obciazenie_hard.pdf}
+    \caption{Przebieg prądu oraz napięcia silnika przy napędzie DML przy dużym obciążeniu}
+    \label{fig:dml_obciazenie_hard}
+\end{figure}
+Na przebiegu \ref{fig:dml_obciazenie_weak} średnia wartość napięcia \(V_{avg}=58.53\;V\), a średnia wartość prądu \(I_{avg}=0.2496\;A\).\\
+Na przebiegu \ref{fig:dml_obciazenie_medium} średnia wartość napięcia \(V_{avg}=175.64\;V\), a średnia wartość prądu \(I_{avg}=0.3359\;A\).\\
+Na przebiegu \ref{fig:dml_obciazenie_hard} średnia wartość napięcia \(V_{avg}=235.04\;V\), a średnia wartość prądu \(I_{avg}=0.4125\;A\).\\
+Wraz ze wzrostem obciążenia, rośnie średnie napięcie oraz średni prąd.
 \end{document}
